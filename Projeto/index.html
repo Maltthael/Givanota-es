@@ -8,29 +8,35 @@
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
 </head>
 
-<body>
-    <nav class="p-3 bg-light d-flex justify-content-between align-items-center">
-        <a class="logo text-center fw-bold fs-4">Givanotacoes</a>
-        
+<body class="fundo">
 
+    <nav class="p-3 bg-light d-flex justify-content-between align-items-center ul_nav">
+        <a class="logo text-center fw-bold fs-4">Givanotacoes</a>
         <div class="dropdown text-center">
             <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Criar
+                +
             </button>
+
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#" onclick="criarBloco(); return false;">Bloco de notas</a></li>
                 <li><a class="dropdown-item" href="#" onclick="abrirModal('postit'); return false;">Post-it</a></li>
-                <li><a class="dropdown-item" href="#" onclick="abrirModal('categoria'); return false;">Criar</a></li>
+                <li><a class="dropdown-item" href="#" onclick="abrirModal('categoria'); return false;">Criar
                         categoria</a></li>
-
             </ul>
         </div>
     </nav>
-
-    <div class="container text-center shadow-lg rounded-4 mt-5 p-4">
+<div class="nav_lateral">
+    <ul class="ul_nav_lateral">
+    <li>Home</li>
+    <li>Tarefas concluidas</li>
+    <li>Metas</li>
+</ul>
+</div>
+    <div class="container text-center rounded-4 mt-5 p-4">
         <button type="button" class="btn btn-warning mb-3" onclick="salvarTudo()">Salvar Tudo</button>
         <button class="btn btn-info mb-3 ms-2" onclick="carregarTudo()">Carregar Tudo</button>
         <div class="dropdown d-inline">
@@ -50,13 +56,16 @@
             onclick="deletarSelecionados()">Deletar Selecionados</button>
 
 
-        <!-- Área onde os blocos vão aparecer -->
+
         <div id="area-blocos" class="mt-4 d-flex flex-wrap gap-3 justify-content-center">
+            <!-- Área onde os blocos vão aparecer -->
         </div>
     </div>
-    <div class="container text-center shadow-lg rounded-4 mt-5 p-4">
+    <div class="container text-center  rounded-4 mt-5 p-4">
         <div id="area-categoria" class="mt-4 d-flex flex-wrap gap-3 justify-content-center">
             <!--Area onde as categorias irão aparecer-->
+  
+            
         </div>
     </div>
 
@@ -65,17 +74,33 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalPersonalizarLabel">Personalizar</h5>
+                    <h5 class="modal-title fw-bold" id="modalPersonalizarLabel">Personalizar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Campo de título -->
                     <div class="mb-3">
-                        <label for="tituloInput" class="form-label">Título</label>
-                        <input type="text" class="form-control" id="tituloInput" placeholder="Digite o título">
+                        <label for="tituloInput" class="form-label">Título/texto inicial</label>
+                        <input type="text" class="form-control text-center fw-bold fs-5" id="tituloInput"
+                            placeholder="Digite um titulo ou texto inicial...">
                     </div>
+
+                    <!-- Campo de cor de fundo -->
                     <div class="mb-3">
                         <label for="corInput" class="form-label">Cor de Fundo</label>
                         <input type="color" class="form-control form-control-color" id="corInput" value="#ffeb3b">
+                    </div>
+
+                    <!-- Campo de cor do texto -->
+                    <div class="mb-3">
+                        <label for="corTextoInput" class="form-label">Cor do Texto</label>
+                        <input type="color" class="form-control form-control-color" id="corTextoInput" value="#000000">
+                    </div>
+
+                    <!-- Pré-visualização -->
+                    <div class="p-3 rounded-3 border mt-4" id="previewBox"
+                        style="background-color: #ffeb3b; color: #000; font-weight: bold; text-align: center;">
+                        <span id="previewTitulo">Pré-visualização do título</span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -85,6 +110,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script>
         let tipoAtual = '';
@@ -96,6 +123,7 @@
             bloco.placeholder = 'Digite aqui...';
             bloco.style.width = '300px';
             bloco.style.height = '200px';
+            bloco.style.border = '1px black solid';
             bloco.value = valor;
             bloco.draggable = true;
             bloco.id = 'bloco-' + Date.now();
@@ -108,21 +136,45 @@
         }
 
 
-        function criarCategoria(titulo = 'Nova Categoria', cor = 'red') {
+        function criarCategoria(titulo = 'Nova Categoria', corFundo = 'red', corTexto = '#000000') {
             const area = document.getElementById('area-categoria');
             const cat = document.createElement('div');
             cat.className = 'categoria';
             cat.contentEditable = 'true';
-            cat.textContent = titulo;
             cat.style.width = '300px';
             cat.style.height = '200px';
-            cat.style.backgroundColor = cor;
+            cat.style.backgroundColor = corFundo;
+            cat.style.color = corTexto;
             cat.style.padding = '10px';
             cat.style.border = '1px solid #ccc';
             cat.style.borderRadius = '8px';
             cat.style.boxShadow = '2px 2px 5px rgba(0,0,0,0.3)';
             cat.style.overflow = 'auto';
             cat.dataset.nome = titulo; // importante: nome interno da categoria
+
+            // --- título visível ---
+            const tituloEl = document.createElement('div');
+            tituloEl.className = 'categoria-titulo';
+            tituloEl.contentEditable = 'true';
+            tituloEl.textContent = titulo;
+            tituloEl.style.fontSize = '20px';
+            tituloEl.style.fontWeight = 'bold';
+            tituloEl.style.fontFamily = '"Segoe UI", sans-serif';
+            tituloEl.style.textAlign = 'center';
+            tituloEl.style.marginBottom = '8px';
+            tituloEl.style.borderBottom = '2px solid rgba(0,0,0,0.15)';
+            tituloEl.style.paddingBottom = '3px';
+
+            // evento: atualizar nome interno quando o título mudar
+            tituloEl.addEventListener('input', () => {
+                cat.dataset.nome = tituloEl.textContent.trim();
+            });
+
+            // --- corpo do conteúdo ---
+            const conteudo = document.createElement('div');
+            conteudo.className = 'categoria-conteudo';
+            conteudo.style.flex = '1';
+            conteudo.style.minHeight = '100px';
 
             // Permitir soltar itens dentro
             cat.addEventListener('dragover', e => e.preventDefault());
@@ -144,35 +196,186 @@
                 }
             });
 
+            // Montagem final
+            cat.appendChild(tituloEl);
+            cat.appendChild(conteudo);
             area.appendChild(cat);
         }
 
+        function abrirCategoria(cat) {
+            const titulo = cat.dataset.nome;
+            const conteudo = Array.from(cat.querySelectorAll('.postit'));
 
-        function criarPostIt(titulo = 'Novo Post-it', cor = 'yellow') {
+            if (conteudo.length === 0) {
+                alert('Essa categoria está vazia!');
+                return;
+            }
+
+            // Esconde tudo da tela principal
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('#area-categoria').style.display = 'none';
+
+            // Cria uma área temporária para mostrar os post-its da categoria
+            const areaTemp = document.createElement('div');
+            areaTemp.id = 'area-temp';
+            areaTemp.className = 'container mt-5 text-center';
+            areaTemp.innerHTML = `
+        <h3>${titulo}</h3>
+        <div class="mb-3">
+            <button class="btn btn-secondary me-2" onclick="voltarPrincipal()">Voltar</button>
+            <button class="btn btn-warning me-2" id="btnRemoverSelecionados">Remover Selecionados</button>
+            <button class="btn btn-danger" id="btnRemoverTodos">Remover Todos</button>
+        </div>
+        <div class="d-flex flex-wrap gap-3 justify-content-center" id="area-postits-categoria"></div>
+    `;
+
+            document.body.appendChild(areaTemp);
+
+            const areaConteudo = document.getElementById('area-postits-categoria');
+            conteudo.forEach(item => areaConteudo.appendChild(item));
+
+            // --- Botão de seleção para remover post-its ---
+            let modoRemocao = false;
+
+            document.getElementById('btnRemoverSelecionados').addEventListener('click', () => {
+                modoRemocao = !modoRemocao;
+
+                const postits = areaConteudo.querySelectorAll('.postit');
+
+                postits.forEach(p => {
+                    if (modoRemocao) {
+                        p.style.cursor = 'pointer';
+                        p.addEventListener('click', toggleSelecionadoCategoria);
+                    } else {
+                        p.style.cursor = 'default';
+                        p.removeEventListener('click', toggleSelecionadoCategoria);
+                        p.classList.remove('selecionado');
+                    }
+                });
+
+                alert(modoRemocao
+                    ? 'Modo de seleção ativado! Clique nos post-its que deseja remover.'
+                    : 'Modo de seleção desativado.');
+            });
+
+            // --- Botão de remover todos ---
+            document.getElementById('btnRemoverTodos').addEventListener('click', () => {
+                if (!confirm('Tem certeza que deseja remover todos os post-its desta categoria?')) return;
+
+                const postits = areaConteudo.querySelectorAll('.postit');
+                postits.forEach(p => p.remove());
+
+                // Atualiza o localStorage
+                const dados = JSON.parse(localStorage.getItem('blocos')) || [];
+                const novosDados = dados.filter(item => item.tipo !== 'postit' || item.conteudoCategoria !== titulo);
+                localStorage.setItem('blocos', JSON.stringify(novosDados));
+
+                alert('Todos os post-its desta categoria foram removidos.');
+            });
+        }
+
+        function toggleSelecionadoCategoria(event) {
+            event.currentTarget.classList.toggle('selecionado');
+        }
+
+        // --- Função de deletar selecionados dentro da categoria ---
+        function removerSelecionadosDaCategoria() {
+            const selecionados = document.querySelectorAll('.postit.selecionado');
+            if (selecionados.length === 0) {
+                alert('Nenhum post-it selecionado!');
+                return;
+            }
+
+            if (!confirm('Remover os post-its selecionados?')) return;
+
+            selecionados.forEach(p => p.remove());
+
+            const dados = JSON.parse(localStorage.getItem('blocos')) || [];
+            const novosDados = dados.filter(item => {
+                return ![...selecionados].some(sel => sel.textContent === item.conteudo);
+            });
+            localStorage.setItem('blocos', JSON.stringify(novosDados));
+
+            alert('Post-its selecionados foram removidos.');
+        }
+
+        function voltarPrincipal() {
+            const temp = document.getElementById('area-temp');
+            if (!temp) return;
+
+            // Recoloca os post-its na categoria original
+            const postits = temp.querySelectorAll('.postit');
+            postits.forEach(p => {
+                const categoria = p.getAttribute('data-categoria');
+                if (categoria) {
+                    const cat = [...document.querySelectorAll('.categoria')]
+                        .find(c => c.dataset.nome === categoria);
+                    if (cat) cat.appendChild(p);
+                }
+            });
+
+            temp.remove();
+
+            document.querySelector('.container').style.display = '';
+            document.querySelector('#area-categoria').style.display = '';
+        }
+
+
+
+
+        function criarPostIt(titulo = 'Novo Post-it', corFundo = '#fff35c', corTexto = '#000000') {
             const area = document.getElementById('area-blocos');
             const postIt = document.createElement('div');
             postIt.className = 'postit';
             postIt.contentEditable = 'true';
             postIt.textContent = titulo;
-            postIt.style.width = '150px';
-            postIt.style.height = '150px';
-            postIt.style.backgroundColor = cor;
-            postIt.style.padding = '10px';
-            postIt.style.border = '1px solid #ccc';
-            postIt.style.borderRadius = '8px';
-            postIt.style.boxShadow = '2px 2px 5px rgba(0,0,0,0.3)';
-            postIt.style.overflow = 'auto';
             postIt.draggable = true;
-
-            // ID único
             postIt.id = 'postit-' + Date.now();
 
+
+            //  aparência do post-it
+            postIt.style.width = '150px';
+            postIt.style.height = '150px';
+            postIt.style.padding = '10px';
+            postIt.style.boxShadow = '2px 2px 5px rgba(0,0,0,0.3)';
+            postIt.style.backgroundColor = corFundo;
+            postIt.style.display = 'inline-block';
+            postIt.style.margin = '10px';
+            postIt.style.overflow = 'hidden';
+            postIt.style.color = corTexto;
+
+            //  rotação aleatória leve
+            const rotacao = (Math.random() * 6 - 3).toFixed(1); // -3° a +3°
+            postIt.style.transform = `rotate(${rotacao}deg)`;
+            postIt.style.transition = 'transform 0.2s ease';
+
+            //  permitir arrastar
             postIt.addEventListener('dragstart', e => {
                 e.dataTransfer.setData('id', postIt.id);
             });
 
+
+            // limite de caractter
+            const limiteCaracteres = 80;
+            postIt.addEventListener('input', () => {
+                if (postIt.textContent.length > limiteCaracteres) {
+                    postIt.textContent = postIt.textContent.slice(0, limiteCaracteres);
+                    // move o cursor para o fim após truncar
+                    const range = document.createRange();
+                    const sel = window.getSelection();
+                    range.selectNodeContents(postIt);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            });
+
+
+
             area.appendChild(postIt);
         }
+
+
 
 
         function abrirModal(tipo) {
@@ -194,14 +397,32 @@
             document.getElementById('btnCriarItem').addEventListener('click', () => {
                 const titulo = document.getElementById('tituloInput').value ||
                     (tipoAtual === 'categoria' ? 'Nova Categoria' : 'Novo Post-it');
-                const cor = document.getElementById('corInput').value;
+                const corFundo = document.getElementById('corInput').value;
+                const corTexto = document.getElementById('corTextoInput').value;
 
-                if (tipoAtual === 'categoria') criarCategoria(titulo, cor);
-                else if (tipoAtual === 'postit') criarPostIt(titulo, cor);
+                if (tipoAtual === 'categoria') criarCategoria(titulo, corFundo, corTexto);
+                else if (tipoAtual === 'postit') criarPostIt(titulo, corFundo, corTexto);
 
                 if (window.modalAtivo) window.modalAtivo.hide();
             });
         });
+
+        // Atualiza a pré-visualização em tempo real
+        document.getElementById('tituloInput').addEventListener('input', () => {
+            document.getElementById('previewTitulo').textContent =
+                document.getElementById('tituloInput').value || 'Pré-visualização do título';
+        });
+
+        document.getElementById('corInput').addEventListener('input', () => {
+            document.getElementById('previewBox').style.backgroundColor =
+                document.getElementById('corInput').value;
+        });
+
+        document.getElementById('corTextoInput').addEventListener('input', () => {
+            document.getElementById('previewBox').style.color =
+                document.getElementById('corTextoInput').value;
+        });
+
 
         function salvarTudo() {
             const blocos = [];
@@ -209,10 +430,10 @@
                 blocos.push({ tipo: 'bloco', conteudo: el.value });
             });
             document.querySelectorAll('.postit').forEach(el => {
-                blocos.push({ tipo: 'postit', conteudo: el.textContent, cor: el.style.backgroundColor });
+                blocos.push({ tipo: 'postit', conteudo: el.textContent, corFundo: el.style.backgroundColor, corTexto: el.style.color });
             });
             document.querySelectorAll('.categoria').forEach(el => {
-                blocos.push({ tipo: 'categoria', conteudo: el.textContent, cor: el.style.backgroundColor });
+                blocos.push({ tipo: 'categoria', conteudo: el.textContent, corFundo: el.style.backgroundColor, corTexto: el.style.color });
             });
 
             if (blocos.length === 0) {
@@ -233,8 +454,8 @@
             const dados = JSON.parse(localStorage.getItem('blocos')) || [];
             dados.forEach(item => {
                 if (item.tipo === 'bloco') criarBloco(item.conteudo, item.cor);
-                if (item.tipo === 'postit') criarPostIt(item.conteudo, item.cor);
-                if (item.tipo === 'categoria') criarCategoria(item.conteudo, item.cor);
+                if (item.tipo === 'postit') criarPostIt(item.conteudo, item.corFundo, item.corTexto);
+                if (item.tipo === 'categoria') criarCategoria(item.conteudo, item.corFundo, item.corTexto);
             });
 
             if (dados.length === 0) alert('Não há dados salvos!');
@@ -320,31 +541,7 @@
             alert('Itens selecionados foram deletados!');
         }
 
-        function abrirCategoria(cat) {
-            const titulo = cat.dataset.nome;
-            const conteudo = Array.from(cat.querySelectorAll('.bloco, .postit'));
 
-            if (conteudo.length === 0) {
-                alert('Essa categoria está vazia!');
-                return;
-            }
-
-            // Esconde áreas principais
-            document.querySelector('.container').style.display = 'none';
-            document.querySelector('#area-categoria').style.display = 'none';
-
-            // Cria uma área temporária para mostrar os itens
-            const areaTemp = document.createElement('div');
-            areaTemp.id = 'area-temp';
-            areaTemp.className = 'container mt-5 text-center';
-            areaTemp.innerHTML = `
-        <h3>${titulo}</h3>  <button class="btn btn-secondary mb-3" onclick="voltarPrincipal()">Voltar</button><div class="d-flex flex-wrap gap-3 justify-content-center"></div>`;
-
-            document.body.appendChild(areaTemp);
-
-            const areaConteudo = areaTemp.querySelector('div');
-            conteudo.forEach(item => areaConteudo.appendChild(item));
-        }
 
         function voltarPrincipal() {
             const temp = document.getElementById('area-temp');
@@ -369,9 +566,10 @@
             document.querySelector('#area-categoria').style.display = '';
         }
 
-
-
     </script>
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
