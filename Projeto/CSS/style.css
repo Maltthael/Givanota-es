@@ -1,109 +1,111 @@
+
+
 :root {
-
-  --text: #e2e8f0;
-  --hover: #38bdf8;
-  --accent: #3b82f6;
+  --verde: #22c55e;
+  --verde-hover: #16a34a;
+  --texto: #0f172a;
+  --fundo: #ffffff;
 }
 
-
-.fundo {
-  margin: 0;
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  color: var(--text);
-  background-color: rgb(255, 255, 255);
-  background-image: url('../img/planta2.png');
-  background-repeat: repeat-x
-}
-
-nav {
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  position: sticky;
-  top: 0;
-}
-
-.logo {
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #0f172a;
-  text-transform: uppercase;
-  text-decoration: none;
-  text-align: center;
-
-
-}
-
-.ul_nav  {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-
-li a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  transition: color 0.2s ease;
-}
-
-li a:hover {
-  color: var(--hover);
-}
-
-.btn {
-  background: var(--accent);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.btn:hover {
-  background: var(--hover);
-}
-
-.criar:hover {
-  background-color: green;
-  text-decoration: none;
-}
-
-/*Formatações dos post-it e das categorias*/
-.selecionado {
-  outline: 3px solid red;
-  opacity: 0.8;
-}
-
-.categoria-titulo {
-  font-family: 'Segoe UI', sans-serif;
-  font-weight: bold;
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 8px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-/*Navbar lateral*/
-
-.nav_lateral{
+/* ===== MENU LATERAL ===== */
+.nav_lateral {
   color: red;
   margin-top: 250px;
   float: left;
-  background-color: wheat;
+  background-color: rgb(255, 255, 255);
   border-radius: 15px;
   margin-left: 50px;
+  width: 70px; /* largura inicial apenas ícones */
+  position: relative;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); /* sombra visível */
 }
-.ul_nav_lateral{
-   list-style: none;
-   padding: 15px;
+
+/* Quando passa o mouse na barra, expande pra mostrar o texto */
+.nav_lateral:hover {
+  width: 180px;
+}
+
+/* Remove os marcadores e alinha a lista verticalmente */
+.ul_nav_lateral {
+  list-style: none;   /* remove os pontinhos */
+  padding: 15px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;          /* espaçamento entre os itens */
+}
+
+/* Estilo do link */
+.link_la {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #22c55e;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+/* Ícone */
+.icone_lateral {
+  font-size: 1.6em;
+  color: #22c55e;
+  transition: color 0.3s ease;
+}
+
+/* Texto escondido inicialmente */
+.link_la span {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+/* Quando passar o mouse na barra lateral, mostra o texto */
+.nav_lateral:hover .link_la span {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Efeito no ícone */
+.link_la:hover .icone_lateral {
+  color: #16a34a; /* verde mais escuro */
+}
+
+
+/* ===== METAS ===== */
+
+/* Espaço do conteúdo principal pra não colar no menu lateral */
+.container {
+  margin-left: 180px; /* ajusta distância do menu lateral */
+  max-width: 800px;   /* deixa o conteúdo mais compacto */
+}
+
+/* Estilo das metas */
+.meta {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 500px; /* tamanho reduzido e centralizado */
+}
+
+.meta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.meta h4 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: #198754;
+}
+
+.meta p {
+  font-size: 0.9rem;
+  color: #333;
 }

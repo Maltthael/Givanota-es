@@ -8,17 +8,20 @@
     <link rel="stylesheet" href="CSS/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 </head>
 
 <body class="fundo">
 
-    <nav class="p-3 bg-light d-flex justify-content-between align-items-center ul_nav">
-        <a class="logo text-center fw-bold fs-4">Givanotacoes</a>
+    <nav class="nav-p p-3 bg-light d-flex justify-content-between align-items-center">
+        <span class="logo text-center fw-bold fs-4">Givanotacoes</span>
+
         <div class="dropdown text-center">
             <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                +
+                +Criar
             </button>
 
             <ul class="dropdown-menu">
@@ -29,13 +32,27 @@
             </ul>
         </div>
     </nav>
-<div class="nav_lateral">
-    <ul class="ul_nav_lateral">
-    <li>Home</li>
-    <li>Tarefas concluidas</li>
-    <li>Metas</li>
-</ul>
-</div>
+
+    <div class="nav_lateral">
+        <ul class="ul_nav_lateral icone_lateral  ">
+            <li><i class="fa-solid fa-house "></i>
+                <a href="index.html" class="link_la">
+                    <span>Pagina inicial</span>
+                </a>
+            </li>
+            <li><i class="fa-solid fa-circle-check"></i>
+                <a href="lista_tarefas.html " class="link_la">
+                    <span> Tarefas concluidas</span>
+                </a>
+            </li>
+            <li><i class="fa-solid fa-bullseye"></i>
+                <a href="metas.html" class="link_la">
+                    <span>Metas</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
     <div class="container text-center rounded-4 mt-5 p-4">
         <button type="button" class="btn btn-warning mb-3" onclick="salvarTudo()">Salvar Tudo</button>
         <button class="btn btn-info mb-3 ms-2" onclick="carregarTudo()">Carregar Tudo</button>
@@ -64,8 +81,8 @@
     <div class="container text-center  rounded-4 mt-5 p-4">
         <div id="area-categoria" class="mt-4 d-flex flex-wrap gap-3 justify-content-center">
             <!--Area onde as categorias irão aparecer-->
-  
-            
+
+
         </div>
     </div>
 
