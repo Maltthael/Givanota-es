@@ -11,13 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="bg-light">
+<body class="bg-light fundo">
 
     <nav class="nav-p p-3 bg-light d-flex justify-content-between align-items-center shadow-sm">
         <span class="logo text-center fw-bold fs-4">Givanotações</span>
-        <div class="dropdown text-center">
-            <button class="btn btn-success" onclick="criarMeta(); return false;">Criar Meta</button>
-        </div>
+
     </nav>
 
     <div class="nav_lateral">
@@ -43,18 +41,46 @@
 
     <div class="container text-center ">
         <div class="row align-items-start">
-            <div class="col border">
+            <div class="col border" id="tarefa-pendente">
                 <h3>Tarefa pendente</h3>
-                <button class="btn btn-success" onclick="addTarefa(); return false;">+Adicionar tafera </button>
+                <button class="btn btn-success" onclick="addTarefaPendente(); return false;">+Adicionar tarefa</button>
             </div>
-            <div class="col">
+
+            <div class="col border" id="tarefa-concluida">
                 <h3>Tarefa concluida</h3>
-                <button class="btn btn-success">+Adicionar tafera </button>
+                <button class="btn btn-success" onclick="addTarefaConcluida(); return false;">+Adicionar tarefa</button>
             </div>
-          
+
         </div>
     </div>
 
+    <div class="modal fade" id="modalTarefa" tabindex="-1" aria-labelledby="modalTarefaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTarefaLabel">Nova Tarefa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tituloTarefa" class="form-label">Título</label>
+                        <input type="text" id="tituloTarefa" class="form-control"
+                            placeholder="Digite o título da tarefa">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descricaoTarefa" class="form-label">Descrição</label>
+                        <textarea id="descricaoTarefa" class="form-control" rows="3"
+                            placeholder="Detalhe sua tarefa..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarTarefa">Salvar Tarefa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="JS/lista_tarefas.js"></script>
 </body>
 
 </html>

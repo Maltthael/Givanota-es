@@ -15,28 +15,41 @@
   background-color: rgb(255, 255, 255);
   border-radius: 15px;
   margin-left: 50px;
-  width: 70px; /* largura inicial apenas ícones */
+  width: 70px; 
   position: relative;
   transition: width 0.3s ease;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4); /* sombra visível */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  position: fixed;      
+  top: 0;               
+  left: 0;               
+  height: 38vh;         
+  z-index: 1000;        
 }
 
-/* Quando passa o mouse na barra, expande pra mostrar o texto */
+.fundo{
+  background-image: url('../img/fundo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  
+}
+
+
 .nav_lateral:hover {
   width: 180px;
 }
 
-/* Remove os marcadores e alinha a lista verticalmente */
+
 .ul_nav_lateral {
-  list-style: none;   /* remove os pontinhos */
+  list-style: none;   
   padding: 15px;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 15px;          /* espaçamento entre os itens */
+  gap: 15px;         
 }
 
-/* Estilo do link */
+
 .link_la {
   position: relative;
   display: flex;
@@ -49,29 +62,29 @@
   font-size: 1rem;
 }
 
-/* Ícone */
+
 .icone_lateral {
   font-size: 1.6em;
   color: #22c55e;
   transition: color 0.3s ease;
 }
 
-/* Texto escondido inicialmente */
+
 .link_la span {
   opacity: 0;
   transform: translateX(-10px);
   transition: all 0.3s ease;
 }
 
-/* Quando passar o mouse na barra lateral, mostra o texto */
+
 .nav_lateral:hover .link_la span {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Efeito no ícone */
+
 .link_la:hover .icone_lateral {
-  color: #16a34a; /* verde mais escuro */
+  color: #16a34a; 
 }
 
 
@@ -79,8 +92,8 @@
 
 /* Espaço do conteúdo principal pra não colar no menu lateral */
 .container {
-  margin-left: 180px; /* ajusta distância do menu lateral */
-  max-width: 800px;   /* deixa o conteúdo mais compacto */
+  margin-left: 180px; 
+  max-width: 800px;  
 }
 
 /* Estilo das metas */
@@ -91,7 +104,7 @@
   margin: 20px auto;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  max-width: 500px; /* tamanho reduzido e centralizado */
+  max-width: 500px; 
 }
 
 .meta:hover {

@@ -5,13 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Givanotacoes - Metas</title>
-      <link rel="stylesheet" href="CSS/style.css" type="text/css">
+  <link rel="stylesheet" href="CSS/style.css" type="text/css">
+  <link rel="stylesheet" href="CSS/meta.css" type="text/css">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="bg-light">
+<body class="bg-light fundo">
 
   <nav class="nav-p p-3 bg-light d-flex justify-content-between align-items-center shadow-sm">
     <span class="logo text-center fw-bold fs-4">Givanotações</span>
@@ -20,125 +21,59 @@
     </div>
   </nav>
 
-   <div class="nav_lateral">
-        <ul class="ul_nav_lateral icone_lateral  ">
-            <li><i class="fa-solid fa-house "></i>
-                <a href="index.html" class="link_la">
-                    <span>Pagina inicial</span>
-                </a>
-            </li>
-            <li><i class="fa-solid fa-circle-check"></i>
-                <a href="lista_tarefas.html " class="link_la">
-                    <span> Tarefas concluidas</span>
-                </a>
-            </li>
-            <li><i class="fa-solid fa-bullseye"></i>
-                <a href="metas.html" class="link_la">
-                    <span>Metas</span>
-                </a>
-            </li>
+  <div class="nav_lateral">
+    <ul class="ul_nav_lateral icone_lateral  ">
+      <li><i class="fa-solid fa-house "></i>
+        <a href="index.html" class="link_la">
+          <span>Pagina inicial</span>
+        </a>
+      </li>
+      <li><i class="fa-solid fa-circle-check"></i>
+        <a href="lista_tarefas.html " class="link_la">
+          <span> Tarefas concluidas</span>
+        </a>
+      </li>
+      <li><i class="fa-solid fa-bullseye"></i>
+        <a href="metas.html" class="link_la">
+          <span>Metas</span>
+        </a>
+      </li>
 
-        </ul>
+    </ul>
+  </div>
+  <div class="modal fade" id="modalMeta" tabindex="-1" aria-labelledby="modalMetaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nova Meta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label class="form-label">Nome da meta</label>
+          <input id="nomeMeta" type="text" class="form-control mb-3">
+
+          <label class="form-label">Quantas tarefas são necessárias?</label>
+          <input id="totalMeta" type="number" min="1" class="form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" onclick="criarMeta()">Criar</button>
+        </div>
+      </div>
     </div>
+  </div>
 
   <div class="container mt-5">
- 
-    <p id="texto-vazio" class="opacity-50 fs-4 text-center">Você ainda não criou nenhuma meta...</p>
+
     <div id="area-metas"></div>
   </div>
 
-  <script>
-    // Função para criar uma nova meta
-    function criarMeta() {
-      const nome = prompt("Digite o nome da meta:");
-      if (!nome) return;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-      const total = parseInt(prompt("Quantas tarefas (post-its) precisa concluir para completar a meta?"));
-      if (!total || total <= 0) return alert("Número inválido.");
+  <script src="JS/meta.js">
 
-      const metas = JSON.parse(localStorage.getItem("metas")) || [];
-      const novaMeta = {
-        id: Date.now(),
-        nome,
-        total,
-        concluidas: 0,
-        tarefas: []
-      };
-
-      metas.push(novaMeta);
-      localStorage.setItem("metas", JSON.stringify(metas));
-
-      const pVazio = document.getElementById("texto-vazio");
-      if (pVazio) pVazio.remove();
-
-      mostrarMeta(novaMeta);
-      confeteSimples();
-    }
-
-    // Exibe uma meta na tela
-    function mostrarMeta(meta) {
-      const container = document.getElementById("area-metas");
-
-      const metaDiv = document.createElement("div");
-      metaDiv.classList.add("meta", "border", "p-3", "rounded", "mb-3", "bg-white", "shadow-sm");
-
-      const progresso = Math.min((meta.concluidas / meta.total) * 100, 100);
-
-      metaDiv.innerHTML = `
-        <h4>${meta.nome}</h4>
-        <p>${meta.concluidas} de ${meta.total} tarefas concluídas</p>
-        <div class="progress mt-2" style="height: 20px;">
-          <div class="progress-bar bg-success" style="width: ${progresso}%"></div>
-        </div>
-      `;
-
-      container.appendChild(metaDiv);
-    }
-
-    // Carrega metas do localStorage ao abrir a página
-    function carregarMetas() {
-      const metas = JSON.parse(localStorage.getItem("metas")) || [];
-      if (metas.length === 0) return;
-
-      const pVazio = document.getElementById("texto-vazio");
-      if (pVazio) pVazio.remove();
-
-      metas.forEach(mostrarMeta);
-    }
-
-    // Efeito de confete simples 🎉
-    function confeteSimples() {
-      const duration = 1000;
-      const end = Date.now() + duration;
-
-      (function frame() {
-        const colors = ['#22c55e', '#16a34a', '#4ade80', '#86efac'];
-        const particle = document.createElement("div");
-        particle.style.position = "fixed";
-        particle.style.width = "8px";
-        particle.style.height = "8px";
-        particle.style.borderRadius = "50%";
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.left = Math.random() * window.innerWidth + "px";
-        particle.style.top = Math.random() * window.innerHeight + "px";
-        particle.style.opacity = "0.8";
-        particle.style.transition = "transform 1s ease-out, opacity 1s";
-        document.body.appendChild(particle);
-
-        setTimeout(() => {
-          particle.style.transform = `translateY(${100 + Math.random() * 100}px)`;
-          particle.style.opacity = "0";
-        }, 50);
-
-        setTimeout(() => particle.remove(), 1000);
-
-        if (Date.now() < end) requestAnimationFrame(frame);
-      })();
-    }
-
-    // Quando a página carregar, traz as metas salvas
-    window.onload = carregarMetas;
   </script>
 
 </body>
+
 </html>
