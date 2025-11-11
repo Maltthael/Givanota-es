@@ -1,10 +1,8 @@
 
-
-:root {
-  --verde: #22c55e;
-  --verde-hover: #16a34a;
-  --texto: #0f172a;
-  --fundo: #ffffff;
+.fundo{
+  background-image: url('../img/fundo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* ===== MENU LATERAL ===== */
@@ -22,17 +20,11 @@
   position: fixed;      
   top: 0;               
   left: 0;               
-  height: 38vh;         
+  height: 250px;         
   z-index: 1000;        
 }
 
-.fundo{
-  background-image: url('../img/fundo.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  
-  
-}
+
 
 
 .nav_lateral:hover {

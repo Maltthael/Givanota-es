@@ -5,32 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoginPin</title>
+    <link rel="stylesheet" href="CSS/pin.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<body class="fundo_tela_inicial">
 
-    <div class="container text-center" style="max-width: 400px;">
 
-        <!-- ABA DE CRIAR PIN -->
-        <div id="criarPin" class="card p-4 shadow">
-            <h2 class="mb-3">Crie seu PIN</h2>
-            <input type="password" id="novoPin" class="form-control mb-3" placeholder="Digite um PIN de 4 dígitos">
-            <button class="btn btn-primary w-100" onclick="salvarPin()">Salvar PIN</button>
+    <div class="card w-25 mx-auto mt-5 text-center rounded-4 p-3 shadow-lg" style="width: 200px;">
+        <div class="card-body">
+            <h3 class="card-title">Bem vindo Givanildo</h3>
+            <p class="card-text fs-5 mt-3">Entre para continuar suas metas</p>
+            <p class="card-text fs-5 mt-3">Deseja entrar?</p>
+            <a href="index.html" class="btn btn-success mt-3">Entrar</a>
         </div>
+    </div>
 
-        <!-- ABA DE LOGIN -->
-        <div id="loginPin" class="card p-4 shadow d-none">
-            <h4 class="text-center mb-4">Digite seu PIN</h4>
-            <input type="password" id="pinLogin" class="form-control mb-2" placeholder="Digite seu PIN">
-            <button class="btn btn-success w-100 mb-2" onclick="verificarPin()">Entrar</button>
-            <button class="btn btn-outline-danger w-100" onclick="resetarPin()">Redefinir PIN</button>
-        </div>
 
     </div>
 
-    <script src="JS/pin_script.js"></script>
 
 </body>
 

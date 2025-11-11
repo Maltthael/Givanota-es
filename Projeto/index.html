@@ -21,7 +21,7 @@
         <div class="dropdown text-center">
             <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
-                +Criar
+                <i class="fa-solid fa-plus"></i> Criar
             </button>
 
             <ul class="dropdown-menu">
@@ -53,12 +53,11 @@
         </ul>
     </div>
     <div class="container text-center rounded-4 mt-5 p-4">
-        <button type="button" class="btn btn-warning mb-3" onclick="salvarTudo()">Salvar Tudo</button>
-        <button class="btn btn-info mb-3 ms-2" onclick="carregarTudo()">Carregar Tudo</button>
+        <button type="button" class="btn btn-primary mb-3" onclick="salvarTudo()"> <i class="fa-solid fa-floppy-disk"></i> Salvar Tudo</button>
+        <button class="btn btn-success mb-3 ms-2" onclick="carregarTudo()"><i class="fa-solid fa-rotate-right"></i> Carregar Tudo</button>
         <div class="dropdown d-inline">
             <button class="btn btn-danger dropdown-toggle mb-3 ms-2" type="button" id="dropdownDeletar"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Deletar
+                data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-trash"></i> Deletar
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownDeletar">
                 <li><a class="dropdown-item" href="#" onclick="DeletarTudo(); return false;">Deletar Tudo</a></li>

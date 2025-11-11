@@ -17,9 +17,20 @@
   <nav class="nav-p p-3 bg-light d-flex justify-content-between align-items-center shadow-sm">
     <span class="logo text-center fw-bold fs-4">Givanotações</span>
     <div class="dropdown text-center">
-      <button class="btn btn-success" onclick="criarMeta(); return false;">Criar Meta</button>
+      <button class="btn btn-success" onclick="abrirModalMeta(); return false;">Criar Meta</button>
     </div>
+
   </nav>
+  <div class="position-fixed bottom-0 end-0 m-4 d-flex flex-row align-items-end gap-2">
+  <button class="btn btn-primary shadow" onclick="salvarTudo()">
+    <i class="fa-solid fa-floppy-disk"></i> Salvar Metas
+  </button>
+  <button class="btn btn-success shadow" onclick="carregarTudo()">
+    <i class="fa-solid fa-rotate-right"></i> Carregar Metas
+  </button>
+</div>
+
+  
 
   <div class="nav_lateral">
     <ul class="ul_nav_lateral icone_lateral  ">
@@ -58,17 +69,20 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-success" onclick="criarMeta()">Criar</button>
+
         </div>
       </div>
     </div>
   </div>
 
   <div class="container mt-5">
-
+    <p id="texto-vazio" class="text-center text-secondary mt-3 fs-3">Você ainda não criou nenhuma meta.</p>
     <div id="area-metas"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 
   <script src="JS/meta.js">
 
