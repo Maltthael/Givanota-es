@@ -97,7 +97,7 @@ function atualizarMetaVisual(id) {
   const progresso = Math.min((tarefasConcluidas / meta.total) * 100, 100);
   metaDiv.querySelector(".progress-bar").style.width = progresso + "%";
 
- 
+
   if (progresso === 100 && tarefasConcluidas >= meta.total) {
     confeteSimples();
     const botoes = metaDiv.querySelectorAll("button.btn.btn-sm.btn-success");
@@ -231,12 +231,12 @@ function salvarTudo() {
     metas.push({ id, nome, total, tarefas });
   });
 
-  // salva tudo localmente
   if (metas.length === 0) {
     alert("Não há metas para salvar!");
     return;
   }
 
+  // salva tudo localmente
   localStorage.setItem("metas", JSON.stringify(metas));
   alert(" Todas as metas foram salvas localmente!");
 }
@@ -246,8 +246,14 @@ function carregarTudo() {
   const container = document.getElementById("area-metas");
   container.innerHTML = "";
 
+  // se houver metas remove o texto "nenhuma meta"
+  const pVazio = document.getElementById("texto-vazio");
+  if (metas.length > 0 && pVazio) pVazio.remove();
+
   metas.forEach(meta => mostrarMeta(meta));
 }
+
+
 
 
 

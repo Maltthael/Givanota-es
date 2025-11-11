@@ -18,6 +18,8 @@
     <nav class="nav-p p-3 bg-light d-flex justify-content-between align-items-center">
         <span class="logo text-center fw-bold fs-4">Givanotações</span>
 
+
+        <!--Botoes de criar post-it e bloco de notas.-->
         <div class="dropdown text-center">
             <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -53,8 +55,11 @@
         </ul>
     </div>
     <div class="container text-center rounded-4 mt-5 p-4">
-        <button type="button" class="btn btn-primary mb-3" onclick="salvarTudo()"> <i class="fa-solid fa-floppy-disk"></i> Salvar Tudo</button>
-        <button class="btn btn-success mb-3 ms-2" onclick="carregarTudo()"><i class="fa-solid fa-rotate-right"></i> Carregar Tudo</button>
+        <!--Botoes de salvar, deletar, deletar selecionado e carregar tudo.-->
+        <button type="button" class="btn btn-primary mb-3" onclick="salvarTudo()"> <i
+                class="fa-solid fa-floppy-disk"></i> Salvar Tudo</button>
+        <button class="btn btn-success mb-3 ms-2" onclick="carregarTudo()"><i class="fa-solid fa-rotate-right"></i>
+            Carregar Tudo</button>
         <div class="dropdown d-inline">
             <button class="btn btn-danger dropdown-toggle mb-3 ms-2" type="button" id="dropdownDeletar"
                 data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-trash"></i> Deletar
@@ -65,12 +70,7 @@
                 </li>
             </ul>
         </div>
-
-        <!-- Botão oculto para confirmar exclusão dos selecionados -->
-        <button id="btnConfirmarSelecao" class="btn btn-outline-danger mb-3 ms-2" style="display:none;"
-            onclick="deletarSelecionados()">Deletar Selecionados</button>
-
-
+       
 
         <div id="area-blocos" class="mt-4 d-flex flex-wrap gap-3 justify-content-center">
             <!-- Área onde os blocos vão aparecer -->
@@ -346,18 +346,18 @@
             alert('Itens selecionados foram deletados!');
         }
 
-        function voltarPrincipal() {
-            const temp = document.getElementById('area-temp');
-            if (!temp) return;
+        // function voltarPrincipal() {
+        //     const temp = document.getElementById('area-temp');
+        //     if (!temp) return;
 
-            const itens = temp.querySelectorAll('.bloco, .postit');
-            itens.forEach(item => {
-                document.getElementById('area-blocos').appendChild(item);
-            });
+        //     const itens = temp.querySelectorAll('.bloco, .postit');
+        //     itens.forEach(item => {
+        //         document.getElementById('area-blocos').appendChild(item);
+        //     });
 
-            temp.remove();
-            document.querySelector('.container').style.display = '';
-        }
+        //     temp.remove();
+        //     document.querySelector('.container').style.display = '';
+        // }
 
 
     </script>
