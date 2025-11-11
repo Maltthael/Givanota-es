@@ -1,8 +1,14 @@
 
+
+/* FORMATACOES GERAIS*/
 .fundo{
   background-image: url('../img/fundo.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.selecionado {
+    border: 2px solid red !important;
 }
 
 /* ===== MENU LATERAL ===== */
