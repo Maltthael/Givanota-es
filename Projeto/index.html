@@ -56,13 +56,16 @@
     </div>
     <div class="container text-center rounded-4 mt-5 p-4">
         <!--Botoes de salvar, deletar, deletar selecionado e carregar tudo.-->
-        <button type="button" class="btn btn-primary mb-3" onclick="salvarTudo()"> <i
-                class="fa-solid fa-floppy-disk"></i> Salvar Tudo</button>
-        <button class="btn btn-success mb-3 ms-2" onclick="carregarTudo()"><i class="fa-solid fa-rotate-right"></i>
-            Carregar Tudo</button>
+        <button type="button" class="btn btn-primary mb-3" onclick="salvarTudo()">
+            <i class="fa-solid fa-floppy-disk"></i> Salvar Tudo
+        </button>
+        <button class="btn btn-success mb-3 ms-2" onclick="carregarTudo()">
+            <i class="fa-solid fa-rotate-right"></i> Carregar Tudo
+        </button>
         <div class="dropdown d-inline">
             <button class="btn btn-danger dropdown-toggle mb-3 ms-2" type="button" id="dropdownDeletar"
-                data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-trash"></i> Deletar
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-trash"></i> Deletar
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownDeletar">
                 <li><a class="dropdown-item" href="#" onclick="DeletarTudo(); return false;">Deletar Tudo</a></li>
@@ -70,7 +73,14 @@
                 </li>
             </ul>
         </div>
-       
+
+        <!-- Botão de deletar selecionados -->
+        <button class="btn btn-danger mb-3 ms-2" id="btnConfirmarSelecao" style="display:none;"
+            onclick="deletarSelecionados()">
+            <i class="fa-solid fa-trash"></i> Deletar Selecionados
+        </button>
+
+
 
         <div id="area-blocos" class="mt-4 d-flex flex-wrap gap-3 justify-content-center">
             <!-- Área onde os blocos vão aparecer -->
@@ -281,17 +291,16 @@
         }
 
         function DeletarTudo() {
-            const dados = JSON.parse(localStorage.getItem('blocos')) || [];
-            if (dados.length === 0) {
-                alert('Não há dados para deletar!');
-                return;
-            }
-
             const confirmar = confirm("Tem certeza que deseja deletar tudo? Essa ação não pode ser desfeita.");
             if (!confirmar) return;
 
-            document.getElementById('area-blocos').innerHTML = '';
+            // Limpa todos os blocos e post-its
+            const area = document.getElementById('area-blocos');
+            area.innerHTML = '';
+
+            // Remove do localStorage
             localStorage.removeItem('blocos');
+
             alert('Todos os blocos e post-its foram deletados!');
         }
 
@@ -331,33 +340,26 @@
 
             if (!confirm('Tem certeza que deseja deletar os itens selecionados?')) return;
 
+
             selecionados.forEach(el => el.remove());
 
+            // Remove do localStorage
             const dados = JSON.parse(localStorage.getItem('blocos')) || [];
             const novosDados = dados.filter(item => {
-                return ![...selecionados].some(sel => sel.textContent === item.conteudo);
+                // Se for postit, usa o id; se for bloco, compara o conteúdo
+                if (item.tipo === 'postit') {
+                    return ![...selecionados].some(sel => sel.dataset.id === item.id);
+                } else if (item.tipo === 'bloco') {
+                    return ![...selecionados].some(sel => sel.value === item.conteudo);
+                }
+                return true;
             });
 
             localStorage.setItem('blocos', JSON.stringify(novosDados));
 
-            document.getElementById('btnConfirmarSelecao').style.display = 'none';
-            modoSelecao = false;
-
             alert('Itens selecionados foram deletados!');
         }
 
-        // function voltarPrincipal() {
-        //     const temp = document.getElementById('area-temp');
-        //     if (!temp) return;
-
-        //     const itens = temp.querySelectorAll('.bloco, .postit');
-        //     itens.forEach(item => {
-        //         document.getElementById('area-blocos').appendChild(item);
-        //     });
-
-        //     temp.remove();
-        //     document.querySelector('.container').style.display = '';
-        // }
 
 
     </script>
